@@ -28,14 +28,16 @@ const getProductTemplate = (
 request(`https://www.amazon.in/s?k=${keyword}`, (error, response, html) => {
   if (!error && response.statusCode === 200) {
     const $ = cheerio.load(html);
-    const results = $("[class='.s-include-content-margin']");
+    let results = $("span[cel_widget_id='SEARCH_RESULTS-SEARCH_RESULTS']");
+    // results = $(results).find("div[class='.s-include-content-margin']");
+    // console.log(results);
     results.each((i, e) => {
-      // const page = $(e).find(".a-link-normal");
-      // console.log(page.text());
-      // const img = $(e)
-      //   .find(".s-image")
-      //   .attr("src");
-      console.log($(e));
+      const page = $(e).find(".a-link-normal span");
+      console.log(page.text());
+      const img = $(e)
+        .find(".a-link-normal .s-image")
+        .attr("src");
+      // console.log(img);
     });
     // console.log(results);
     // console.log(html);
